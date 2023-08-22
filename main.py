@@ -1,13 +1,13 @@
 """
-Створіть метаклас, який записує в консоль повідомлення, коли створюється новий клас.
+Напишіть рекурсивну функцію, яка перевертає вхідний рядок.
 """
 
 
-class Meta(type):
-    def __init__(cls, name, bases, attrs):
-        print(f"Клас {name} створено")
-        super().__init__(name, bases, attrs)
+def reverse_string(word):
+    if len(word) == 1:
+        return word
+    return word[-1] + reverse_string(word[:-1])
 
 
-class NewClass(metaclass=Meta):
-    pass
+n = reverse_string(str(input("Напишіть Ваше слово: ")))
+print(n)
