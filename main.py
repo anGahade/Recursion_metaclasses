@@ -1,16 +1,13 @@
 """
-Напишіть рекурсивну функцію, яка обчислює суму цифр заданого числа.
-
+Створіть метаклас, який записує в консоль повідомлення, коли створюється новий клас.
 """
 
 
-def sum_of_digits(n):
-    if n == 0:
-        return 0
-    else:
-        return n % 10 + sum_of_digits(n // 10)
+class Meta(type):
+    def __init__(cls, name, bases, attrs):
+        print(f"Клас {name} створено")
+        super().__init__(name, bases, attrs)
 
 
-number = int(input("Введіть число: "))
-result = sum_of_digits(number)
-print(f"Сума цифр числа {number} дорівнює {result}")
+class NewClass(metaclass=Meta):
+    pass
