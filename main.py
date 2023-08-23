@@ -1,21 +1,17 @@
 """
-Створіть метаклас, який переконується, що назва класу задана у форматі CamelCase.
-Перевірки на те що перший символ заглавний вистачить.
-
+Напишіть рекурсивну функцію, яка підраховує глибину вкладеності списків.
 """
 
 
-class CamelCaseMeta(type):
-    def __init__(cls, name, bases, attrs):
-        if not name[0].istitle():
-            raise TypeError("Class {} should be in CamelCase.".format(name))
-        super().__init__(name, bases, attrs)
+def nested_list_depth(lst):
+    if not isinstance(lst, list):
+        return 0
+    if not lst:
+        return 1
+    depths = [nested_list_depth(item) for item in lst]
+    return 1 + max(depths)
 
 
-class NewClass(metaclass=CamelCaseMeta):
-    __attribute = "example"
-
-
-class notCamelCase(metaclass=CamelCaseMeta):
-    pass
-
+nested_list = [1, [2, [3, 4]], 5, [6, 7, [8, [9]]]]
+depth = nested_list_depth(nested_list)
+print(f"Глибина вкладеності списків: {depth}")
