@@ -1,17 +1,21 @@
 """
-Створіть метаклас, який викидає помилку при спробі створити клас
-з атрибутами, що починаються з '__' (два нижніх підкреслення).
+Створіть метаклас, який переконується, що назва класу задана у форматі CamelCase.
+Перевірки на те що перший символ заглавний вистачить.
+
 """
 
 
-class DunderMeta(type):
+class CamelCaseMeta(type):
     def __init__(cls, name, bases, attrs):
-        for attr_name in attrs:
-            if attr_name.startswith('__'):
-                raise TypeError("Class {} should not have attributes starting with '__'.".format(name))
+        if not name[0].istitle():
+            raise TypeError("Class {} should be in CamelCase.".format(name))
         super().__init__(name, bases, attrs)
 
 
-class __NewClass(metaclass=DunderMeta):
+class NewClass(metaclass=CamelCaseMeta):
     __attribute = "example"
+
+
+class notCamelCase(metaclass=CamelCaseMeta):
+    pass
 
